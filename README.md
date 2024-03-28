@@ -118,7 +118,7 @@ Configure our `rules.v4` files:
 ```
 sudo nano /etc/iptables.rules.v4
 ```
-Your rules.v4 should look like this:
+Your rules.v4 should look like this:  
 ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/a50d1e1a-f2eb-40ac-a0d5-598c8626d6ed)
 Apply these rules to iptables by:
 ```
@@ -129,4 +129,23 @@ Now, you can check what rules are applied by `$ sudp iptables -L`:
 ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/7a8814c4-ed98-4ab4-b1dd-547f769ff0aa)
 
 ## Testing
+To check if rules are set up successfully, we can allow traffic flow and capture packets using `tcpdump `:
+```
+sudo tcpdump -i <interface> -U -w - | tee <yourname>.pcap | tcpdump -r -
+```
+** Don't forget that you should be capturing traffic of internal interface instead of the NAT interface.
 
+Let's go back to our Windows VM and do the testing!
+1. Browser any HTTPS website. You should be able to visit the website under https. Relevant handshaking packets should be captured in your Linux VM. You can use `Wireshark` to check for packets. Pay attention to keywords like TCP and ACk.
+2. Now try to browser any website under http. HTTP traffic should be blocked. Connections fail.
+   ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/5be37644-cb34-4489-91e9-6f461480418f)
+
+3. Try `ping` any webpage. Your pings should time out. Since ICMP packets are blocked. You should have outputs like this:
+  ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/24817705-8a20-4cb7-8d04-a3a62f845d1a)
+
+4. Try SSH any available server and it should connect from the client(Windows VM). You should have something like this:
+   ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/a66462ff-a513-4d1b-8f32-1dc1bcae4945)
+    What appears in terminal of your Linux VM will be similar to this with the hand-shaking process:
+   ![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/9251d9fe-fc33-4154-98d0-47fd2c70a4d9)
+
+   
