@@ -119,7 +119,8 @@ Configure our `rules.v4` files:
 sudo nano /etc/iptables.rules.v4
 ```
 Your rules.v4 should look like this:  
-![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/a50d1e1a-f2eb-40ac-a0d5-598c8626d6ed)
+![image](https://github.com/jenniferwingna/Network-Security-Gateway-Setup/assets/116328799/a50d1e1a-f2eb-40ac-a0d5-598c8626d6ed)  
+
 Apply these rules to iptables by:
 ```
 sudo iptables-restore < /etc/iptables/rules.v4
